@@ -21,12 +21,27 @@ if (!fs.existsSync(tempDir)) {
 const app = express();
 
 // Middleware
-app.use(cors({
-    origin: 'https://my-music-psi.vercel.app', // Your frontend URL
-    credentials: true,               // Allow cookies/credentials
-  }));
+const corsOptions = {
+  origin: 'https://my-music-psi.vercel.app',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // 👈 Handle preflight
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://my-music-psi.vercel.app');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  next();
+});
+
 
 // MongoDB Connection
 const connectDB = async () => {
