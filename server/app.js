@@ -22,7 +22,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: 'http://localhost:5174', // Your frontend URL
+    origin: 'https://my-music-psi.vercel.app', // Your frontend URL
     credentials: true,               // Allow cookies/credentials
   }));
 app.use(express.json());
