@@ -3,7 +3,8 @@ import axios from 'axios';
 import { refreshToken } from './auth'; 
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api',
+ // baseURL: 'http://localhost:5000/api',
+  baseURL: 'https://my-music-m5u5.vercel.app/api',
   withCredentials: true
 });
 
